@@ -1,0 +1,10 @@
+# pnpm 11 的构建脚本白名单。
+# 说明：下面四个依赖带 postinstall，但本 Demo 不需要它们执行任何脚本。
+# 这个值是在全新导出的源码树上实测出来的：全部置 false 后 `pnpm install` → `pnpm build:demo` → `pnpm dev` 全部正常。
+# （原文件里是 pnpm 生成的占位符文本「set this to true or false」，没填时新机器安装会报
+#  ERR_PNPM_IGNORED_BUILDS，换电脑交付时容易被误判成"装坏了"。）
+allowBuilds:
+  '@parcel/watcher': false # 只用于文件监听，Vite 会退回内置轮询
+  core-js-pure: false # postinstall 只打印赞助信息
+  es5-ext: false # postinstall 只打印赞助信息
+  esbuild: false # 平台二进制随 optionalDependencies 安装，不需要 postinstall

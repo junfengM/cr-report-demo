@@ -1,0 +1,26 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+/dist*
+pnpm-debug
+auto-*.d.ts
+.idea
+.history
+output/
+.playwright-cli/
+
+# 本机包缓存（1.1G，pnpm 自己在用，不是工程内容）
+.pnpm-store/
+# 脚手架只读参考副本（34M，源码副本、可重新获取）：不纳入版本库。
+# 若确实要一起留档：git add -f .yudao-ref
+.yudao-ref/
+# 体检/联调时的一次性临时脚本
+tmp/
+*.local.log
+
+# 原始需求文档等外部参考素材（不进版本库）
+.refs/
+
+# 交付包产物（换电脑用的演示包 / 源码包，由 scripts/make-release.mjs 生成，体积大且可重建）
+release/
