@@ -624,7 +624,7 @@ const removeRow = async (pageIndex: number) => {
 
 /** 批量操作（跳转手工批量操作页面） */
 const handleBatch = () => {
-  router.push({ path: '/cr-data/batch', query: { period: context.period } })
+  router.push({ path: '/new-unified/cr-data/batch', query: { period: context.period } })
 }
 
 /** 提交当前报表数据 */

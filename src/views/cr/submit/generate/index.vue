@@ -401,7 +401,7 @@ const handleClear = () => {
 
 /** 跳转报文状态查询（带期次，状态页可直接沿用筛选条件） */
 const viewStatus = () => {
-  router.push({ path: '/cr-submit/status', query: { period: formData.period } })
+  router.push({ path: '/new-unified/cr-submit/status', query: { period: formData.period } })
 }
 
 /** 加载期次 / 机构 / 报表下拉，并给出一个可直接生成的默认选择 */

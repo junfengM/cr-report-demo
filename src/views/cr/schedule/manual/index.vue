@@ -313,7 +313,7 @@ const handleRun = async () => {
 /** 去批量监控：带上期次，落到那页就能筛到本次生成的行 */
 const goMonitor = () => {
   router.push({
-    path: '/cr-schedule/monitor',
+    path: '/new-unified/cr-schedule/monitor',
     query: { period: result.value ? result.value.period : '' }
   })
 }

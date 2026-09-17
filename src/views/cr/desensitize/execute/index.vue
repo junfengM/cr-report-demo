@@ -623,13 +623,16 @@ const pendingApply = computed(() =>
 const goApproval = () => {
   const row: any = pendingApply.value
   router.push({
-    path: '/cr-desensitize/approval',
+    path: '/new-unified/cr-desensitize/approval',
     query: row ? { keyword: String(row.batchNo) } : {}
   })
 }
 
 const goApprovalRow = (row: any) => {
-  router.push({ path: '/cr-desensitize/approval', query: { keyword: String(row.batchNo || '') } })
+  router.push({
+    path: '/new-unified/cr-desensitize/approval',
+    query: { keyword: String(row.batchNo || '') }
+  })
 }
 
 /** 还原：把这一批次改写的值倒回原文（先查对照行数——历史种子批次没有对照，不能假装能还原） */
@@ -666,7 +669,7 @@ const handleDetail = async (row: { id?: number }) => {
 }
 
 const goResult = () => {
-  router.push('/cr-audit/desensitize-query')
+  router.push('/new-unified/cr-audit/desensitize-query')
 }
 
 onMounted(async () => {

@@ -1,29 +1,5 @@
 <template>
   <ContentWrap>
-    <!-- 我的权限横幅：读 /cr/permission-common/my-scope，口径与接口层的数据过滤同源（前端不自己算一遍） -->
-    <el-alert v-if="myScope" class="mb-15px" type="success" :closable="false" show-icon>
-      <template #title>
-        <span>
-          我的数据范围：{{ myScope.dataScope.scopeTypeLabel }}
-          <span v-if="myScope.dataScope.orgNames.length">
-            （{{ myScope.dataScope.orgNames.join('、') }}）
-          </span>
-          ｜ 我的动作范围：
-          <span v-if="myScope.deptScope.actions.length">
-            {{ myScope.deptScope.actions.map((item) => item.label).join('、') }}
-          </span>
-          <span v-else>仅可查看</span>
-        </span>
-      </template>
-      <div class="text-12px">
-        当前账号：{{ myScope.user.nickname }}（{{ myScope.user.deptName }} /
-        {{ myScope.user.orgName }}）；数据范围依据：{{
-          myScope.dataScope.superAdmin ? '超级管理员，不受规则限制' : myScope.dataScope.source
-        }}；动作范围依据：{{
-          myScope.deptScope.superAdmin ? '超级管理员，不受规则限制' : myScope.deptScope.source
-        }}
-      </div>
-    </el-alert>
     <!-- 搜索工作栏 -->
     <el-form
       class="-mb-15px"
@@ -118,15 +94,6 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-alert
-      class="mb-10px"
-      type="info"
-      :closable="false"
-      show-icon
-      title="判定顺序：用户级 > 角色级；指定报表 > 全部报表；再按优先级小的 → 后建的。未命中任何规则时回落到「角色管理」页配的角色默认数据范围；系统管理员不受限。"
-    >
-      本页规则真正落在接口上（数据导入批次列表按可见机构过滤），不是只藏按钮。
-    </el-alert>
     <el-table v-loading="loading" :data="list" @selection-change="handleRowCheckboxChange">
       <el-table-column type="selection" width="55" />
       <el-table-column label="主体类型" align="center" prop="subjectType" width="100">
@@ -205,7 +172,6 @@
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import download from '@/utils/download'
 import * as DataScopeApi from '@/api/cr/system/dataScope'
-import * as CommonApi from '@/api/cr/system/common'
 import DataScopeForm from './DataScopeForm.vue'
 import DataScopeDecisionDialog from './DataScopeDecisionDialog.vue'
 
@@ -241,16 +207,6 @@ const getList = async () => {
     total.value = data.total
   } finally {
     loading.value = false
-  }
-}
-
-/** 我的权限横幅：由服务端判定（角色/用户规则 → 生效规则），页面只负责显示 */
-const myScope = ref<CommonApi.MyScopeVO>()
-const loadMyScope = async () => {
-  try {
-    myScope.value = await CommonApi.getMyScope()
-  } catch {
-    myScope.value = undefined
   }
 }
 
@@ -322,6 +278,5 @@ const handleExport = async () => {
 
 onMounted(() => {
   getList()
-  loadMyScope()
 })
 </script>

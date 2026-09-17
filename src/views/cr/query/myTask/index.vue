@@ -209,7 +209,7 @@ const contextQuery = (row: MyTaskApi.MyTaskVO) => {
 /** 去填报（待办 → 数据填报） / 查看（已办 → 报表状态查询），带上任务上下文 */
 const handleOpen = (row: MyTaskApi.MyTaskVO) => {
   router.push({
-    path: activeTab.value === 'done' ? '/cr-query/status' : '/cr-data/fill',
+    path: activeTab.value === 'done' ? '/new-unified/cr-query/status' : '/new-unified/cr-data/fill',
     query: contextQuery(row)
   })
 }

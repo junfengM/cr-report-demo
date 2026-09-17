@@ -86,7 +86,7 @@ try {
   await evaluate(fillInput(`[...document.querySelectorAll('input')].find(i => i.type === 'password')`, 'admin123'))
   await login()
 
-  await send('Page.navigate', { url: `${BASE}/cr-task/template` })
+  await send('Page.navigate', { url: `${BASE}/new-unified/cr-task/template` })
   await waitFor(async () => (await evaluate(`document.querySelectorAll('.el-table__body tbody tr').length`)) > 0, 25000, 'list')
 
   const before = await evaluate(`document.querySelectorAll('.el-table__body tbody tr').length`)
@@ -145,7 +145,7 @@ try {
   check('新增任务后列表出现新记录', created === true, `${before} 行 / ${totalBefore}`)
 
   // 2. 刷新后仍然存在（localStorage 持久化）
-  await send('Page.navigate', { url: `${BASE}/cr-task/template` })
+  await send('Page.navigate', { url: `${BASE}/new-unified/cr-task/template` })
   await waitFor(async () => (await evaluate(`document.querySelectorAll('.el-table__body tbody tr').length`)) > 0, 25000, 'reload-list')
   const persisted = await evaluate(`document.querySelector('.el-table__body')?.innerText.includes(${JSON.stringify(NEW_CODE)})`)
   const storageCount = await evaluate(`(() => {

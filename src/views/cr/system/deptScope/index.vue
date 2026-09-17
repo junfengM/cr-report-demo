@@ -88,17 +88,6 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-alert class="mb-10px" type="info" :closable="false" show-icon>
-      <template #title>部门权限 = 部门（含上级部门链）× 报表范围 → 允许的动作</template>
-      <div class="leading-6">
-        <div>1. 规则的部门对该部门及其全部下级部门生效。</div>
-        <div>例：给「总公司」授权，总公司各部门都命中。</div>
-        <div>2. 同一「部门 × 报表」有多条时，按下面的顺序决定谁生效：</div>
-        <div>指定报表 &gt; 全部报表 → 优先级小的 → 后建的。</div>
-        <div>3. 未命中任何规则 = 默认拒绝（与导入权限同一约定）。</div>
-        <div>4. 动作真正落在接口上：数据填报保存 / 批量提交 / 复核 / 审核 / 打回。</div>
-      </div>
-    </el-alert>
     <el-table v-loading="loading" :data="list" @selection-change="handleRowCheckboxChange">
       <el-table-column type="selection" width="55" />
       <el-table-column

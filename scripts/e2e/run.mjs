@@ -196,9 +196,11 @@ try {
   const afterLogin = await doLogin('admin')
   check('管理员登录成功', afterLogin.loggedIn, `path=${afterLogin.path}`)
   check(
-    '侧边栏含报送菜单',
-    afterLogin.menu.includes('报表任务管理') && afterLogin.menu.includes('任务模板'),
-    `菜单=${afterLogin.menu.slice(0, 14).join(' / ')}`
+    '侧边栏含新统信报送菜单',
+    afterLogin.menu.includes('新统信报送') &&
+      afterLogin.menu.includes('报表任务管理') &&
+      afterLogin.menu.includes('任务模板'),
+    `菜单=${afterLogin.menu.slice(0, 16).join(' / ')}`
   )
   check(
     '侧边栏含系统管理',
@@ -236,7 +238,7 @@ try {
   check('侧边栏可点进“任务模板”', clickedLeaf === true, '')
   // 先等路由真正切过去，再等表格出数据
   // （首页工作台也有表格，不能只看"有没有表格"）
-  await waitFor(() => evaluate(`location.pathname === '/cr-task/template'`), 15000, 'route-change')
+  await waitFor(() => evaluate(`location.pathname === '/new-unified/cr-task/template'`), 15000, 'route-change')
   await waitFor(async () => {
     const n = await evaluate(
       `[...document.querySelectorAll('.el-table__body tbody tr')].filter(r => /RW/.test(r.innerText)).length`

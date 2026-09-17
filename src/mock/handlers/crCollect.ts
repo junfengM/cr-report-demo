@@ -1522,7 +1522,12 @@ onPost('/cr/collect-supplement/execute', (ctx) => {
   return {
     apply: updated,
     fillLink:
-      '/cr-data/fill?orgId=' + row.orgId + '&reportId=' + row.reportId + '&period=' + row.period,
+      '/new-unified/cr-data/fill?orgId=' +
+      row.orgId +
+      '&reportId=' +
+      row.reportId +
+      '&period=' +
+      row.period,
     message: '已打开补录通道：可到「数据填报」重新录入，或回到「数据导入」重新导入文件'
   }
 })

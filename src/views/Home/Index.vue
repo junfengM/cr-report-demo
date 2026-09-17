@@ -202,7 +202,7 @@
 import type { EChartsOption } from 'echarts'
 import * as DashboardApi from '@/api/cr/dashboard'
 
-defineOptions({ name: 'Home' })
+defineOptions({ name: 'CrNewTrustHome' })
 
 const router = useRouter()
 
@@ -258,15 +258,15 @@ const timelineType = (type: string) =>
 
 /** 待办所属环节 → 对应处理页面（环节由 /cr/dashboard/todo 按任务状态映射） */
 const TODO_ROUTE: Record<string, string> = {
-  待复核: '/cr-task/review',
-  待本级审核: '/cr-task/audit-local',
-  待上级审核: '/cr-task/audit-upper',
-  待填报: '/cr-data/fill'
+  待复核: '/new-unified/cr-task/review',
+  待本级审核: '/new-unified/cr-task/audit-local',
+  待上级审核: '/new-unified/cr-task/audit-upper',
+  待填报: '/new-unified/cr-data/fill'
 }
 
 const handleTodo = (item: DashboardApi.DashboardTodoVO) => {
   // 点待办直接跳到该环节的处理页面；环节异常时兜底到任务管理
-  router.push(TODO_ROUTE[item.stage] || '/cr-task/manage')
+  router.push(TODO_ROUTE[item.stage] || '/new-unified/cr-task/manage')
 }
 
 const loadAll = async () => {

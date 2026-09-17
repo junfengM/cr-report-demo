@@ -4,7 +4,7 @@
 // 例：
 //   node scripts/e2e/eval.mjs "location.pathname"
 //   node scripts/e2e/eval.mjs "import('/src/config/axios/index.ts').then(m => m.default.get({url:'/system/role/page',params:{pageNo:1,pageSize:10}})).then(r=>JSON.stringify(r).slice(0,400)).catch(e=>'ERR:'+e.message)"
-//   node scripts/e2e/eval.mjs "JSON.parse(localStorage.getItem('roleRouters').replace(/^.*?\$/,'')).length" --url=/cr-meta/org
+//   node scripts/e2e/eval.mjs "JSON.parse(localStorage.getItem('roleRouters').replace(/^.*?\$/,'')).length" --url=/new-unified/cr-meta/org
 import { spawn } from 'node:child_process'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'

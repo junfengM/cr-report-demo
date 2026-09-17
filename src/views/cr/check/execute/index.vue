@@ -280,7 +280,7 @@ const handleClear = () => {
 
 /** 跳转校验结果查询（带期次，结果页可直接沿用筛选条件） */
 const viewResult = () => {
-  router.push({ path: '/cr-check/result', query: { period: formData.period } })
+  router.push({ path: '/new-unified/cr-check/result', query: { period: formData.period } })
 }
 
 /** 加载机构与报表下拉选项，并给出一个可直接运行的默认选择 */

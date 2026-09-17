@@ -744,7 +744,7 @@ const P1: Stage = 'P1'
 const P2: Stage = 'P2'
 
 /** ============ 菜单树 ============ */
-export const MENU_TREE: MenuSpec[] = [
+const CURRENT_MENU_TREE: MenuSpec[] = [
   {
     name: '报表任务管理',
     path: '/cr-task',
@@ -1889,6 +1889,43 @@ export const MENU_TREE: MenuSpec[] = [
   }
 ]
 
+/**
+ * 监管报送业务统一挂在「新统信报送」入口下；EAST 与保单登记暂只在门户展示占位卡片。
+ * 报送目录改为相对路径后，页面真实地址会带上 `/new-unified` 前缀，避免用户在门户前
+ * 就直接看到当前业务菜单。
+ */
+const REPORTING_MENU_PREFIX = '/cr-'
+const toUnifiedRelativePath = (spec: MenuSpec): MenuSpec => ({
+  ...spec,
+  path: spec.path.replace(/^\//, '')
+})
+
+const unifiedReportingMenu: MenuSpec = {
+  name: '新统信报送',
+  path: '/new-unified',
+  alwaysShow: true,
+  icon: 'ep:platform',
+  stage: P0,
+  children: [
+    {
+      name: '首页',
+      path: 'home',
+      component: 'Home/Index',
+      componentName: 'CrNewTrustHome',
+      icon: 'ep:home-filled',
+      stage: P0
+    },
+    ...CURRENT_MENU_TREE.filter((spec) => spec.path.startsWith(REPORTING_MENU_PREFIX)).map(
+      toUnifiedRelativePath
+    )
+  ]
+}
+
+export const MENU_TREE: MenuSpec[] = [
+  unifiedReportingMenu,
+  ...CURRENT_MENU_TREE.filter((spec) => !spec.path.startsWith(REPORTING_MENU_PREFIX))
+]
+
 /** ============ 扁平化 ============ */
 
 /** 菜单管理页面用的扁平结构（MenuVO） */
@@ -1954,7 +1991,10 @@ const flattenMenus = (): MenuRow[] => {
     })
     spec.children?.forEach((child, index) => walk(child, currentId, index + 1, stage, routeKey))
     // 追加该页面的按钮权限
-    const buttons = spec.component ? BUTTONS[routeKey] || BUTTONS[spec.component] : undefined
+    const legacyRouteKey = routeKey.replace(/^new-unified\//, '')
+    const buttons = spec.component
+      ? BUTTONS[routeKey] || BUTTONS[legacyRouteKey] || BUTTONS[spec.component]
+      : undefined
     if (buttons) {
       buttons.forEach(([name, permission, buttonRoles], index) => {
         rows.push({
